@@ -26,7 +26,7 @@ Welcome to the party! 🥳
 ## **Get Started 🚀**
 <hr>
 
-To get started, clone the [interface repository](https://github.com/anthonybench/powerjira) and populate the config files per the readme.
+To get started, clone this repo and populate the config files per the readme.
 
 Specifically, you need 4 files. These can be named whatever you wish by editing `main.py:59`. \
 Below are the requirements of the file with the default (suggested) file names:
@@ -101,7 +101,7 @@ token:    <jira-access-token>
 ## **Contribute 🤝**
 <hr>
 
-Feel free to push PR's to help make this tool more extensible/flexible over at the [GitHub repo](https://github.com/anthonybench/powerjira).
+Feel free to push PR's to help make this tool more extensible/flexible.
 
 <br />
 
@@ -125,6 +125,7 @@ Thanks to Atlassian for making market-leading tools that kinda frustrate me.
 <!-- / -->
 See [License](https://www.gnu.org/licenses/gpl-3.0.txt) for the full license text.
 
-This repository was authored by *Isaac Yep*.
+This repository was authored by *Isaac Yep*. \
+[PyPi Package](https://pypi.org/project/powerjira/#table-of-contents)
 
 [Back to Table of Contents](#table-of-contents-)
