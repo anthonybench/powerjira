@@ -1,6 +1,6 @@
 [project]
 name = "powerjira"
-version = "1.0.0"
+version = "1.0.1"
 description = "A succinct, minimal local jira control plane in a VSCode workspace. Because less Jira is more better!"
 keywords = ["jira", "work tracker", "powerjira", "cli"]
 
@@ -12,7 +12,6 @@ authors = [
 ]
 
 dependencies = [
-  "python ~=3.10",
   "typer ~=0.15",
   "jira ~=3.4.1",
   "PyYAML ~=6.0",
