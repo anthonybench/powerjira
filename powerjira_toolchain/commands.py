@@ -24,7 +24,7 @@ def goto():
 
 @app.command()
 def make(dry_run:bool=False):
-  '''builds ticket per <powerjira_directory>/ticket.yml'''
+  '''Builds ticket per <powerjira_directory>/ticket.yml'''
   # guards
   verifyPath(f'{powerjira_directory}/ticket.yml')
   verifyPath(f'{powerjira_directory}/summary.txt')
@@ -79,7 +79,7 @@ def make(dry_run:bool=False):
 
 @app.command()
 def fetch(target:str):
-  '''provide ticket key, or a status for all your related open tickets'''
+  '''Provide ticket key, or a status for all your related open tickets'''
   match regexCheck(target):
     case r"^.+-\d+$": # ticket key
       verifyPath(f'{powerjira_directory}/ticket.yml')
@@ -107,7 +107,7 @@ def fetch(target:str):
 
 @app.command()
 def watched(action:str):
-  '''[list, done] manage watched issues of status DONE'''
+  '''[list, done] Manage watched issues of status DONE'''
   watched_issues = jira.search_issues('watcher = currentUser() AND resolution = Done')
 
   title = {
@@ -119,8 +119,10 @@ def watched(action:str):
   for issue in watched_issues:
     match action:
       case 'prune':
-        jira.remove_watcher(issue.key, user_name)
-        payload.append([issue.key, issue.fields.summary])
+        resolution = str(issue.fields.resolution)
+        if resolution.lower() == 'done':
+          jira.remove_watcher(issue.key, user_name)
+          payload.append([issue.key, issue.fields.summary])
       case 'list':
         payload.append([issue.key, issue.fields.summary])
 

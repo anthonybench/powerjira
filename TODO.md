@@ -1,4 +1,3 @@
-- prune has a bug, need to check for done status
 - dynamic branch naming convention
 
 - support different editors

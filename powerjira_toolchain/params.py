@@ -20,9 +20,9 @@ assignee: iyep
 
 init_status: to do # new, to do, in progress, done, backlog
 
-project: QUANT # QUANT, HYP, CS
-priority: Medium # Low, Medium, High (ignored for Epic)
-issue_type: Task # Task, Epic
+project: quant # quant, hyp, cs
+priority: medium # low, medium, high (ignored if epic)
+issue_type: task # task, epic
 parent_epic: '' # Leave empty for standalone task or epic
 
 
@@ -30,9 +30,9 @@ parent_epic: '' # Leave empty for standalone task or epic
 branch_suffix: 'implement_thing'
 parent_branch: main''',
 
-  'summary.txt': '''Implement the thing''',
+  'summary.txt': '''This is the ticket's title, which jira calls the "summary"''',
 
-  'description.txt': '''This is the ticket's title, which jira calls the "summary"''',
+  'description.txt': '''This is the ticket's description''',
 }
 
 
