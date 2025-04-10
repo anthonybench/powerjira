@@ -134,3 +134,4 @@ config.yaml
 config.yml
 agent.yaml
 agent.yml
+_ephemeral/

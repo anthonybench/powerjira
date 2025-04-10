@@ -1,34 +1,35 @@
-# **PowerJira**
-*A succinct local jira control plane.*
+# **powerjira**
+*Get rid of the guff, because tickets should be simple.*
 
 <br />
 
-## **Welcome to PowerJira!**
-Hate how visually noise and clunky the Jira web-app is? Ever wish you could manage your jira account with a minimalistic interface?
+## **Welcome to powerjira!**
+Put plainly, I don't enjoy my time in the Jira GUI. There's too much crap I don't care about, and even when you make your own ticket dashboard via JQL, the ticket views themselves could stand to be more minimal. \
+And that's where *powerjira* comes in ☕🤏
 
-Welcome to the party! 🥳
+Open a minimal set of configuration files, whose location you control (defaults to `$HOME`), and interface with Jira in your favorite editor. It also offers an ergonomic way to manage watched tickets, and allows you to query tickets on key or status without having to remember JQL (because who wants that).
 
-<br />
-
-### **Table of Contents** 📖
-<hr>
-
-  - [Welcome](#welcome-to-powerjira)
-  - [**Get Started**](#get-started-)
-  - [Usage](#usage-)
-  - [Technologies](#technologies-)
-  - [Contribute](#Contribute-)
-  - [Acknowledgements](#acknowledgements-)
-  - [License/Stats/Author](#license-stats-author-)
+If you want to make tickets without the guff, I'm a `pip install` away!
 
 <br />
 
 ## **Get Started 🚀**
 <hr>
 
+Export the following environment variables powerjira expects to be available for authentication:
+```sh
+export JIRA_DOMAIN=https://acme.atlassian.net
+export JIRA_USERNAME=dingus@acme.com
+export JIRA_TOKEN=abc123
+```
+
+Then:
 ```sh
 pip install powerjira
 pip install --upgrade powerjira
+
+python -m powerjira --help
+python -m powerjira init # stubs config if missing, opens in editor
 ```
 
 <br />
@@ -36,58 +37,20 @@ pip install --upgrade powerjira
 ## **Usage ⚙**
 <hr>
 
-Set an alias in your shell environment to open up an editor workspace you want to use powerjira in. \
-Then set another alias to run a script like:
-```python
-# pip install powerjira
-# pip install --upgrade powerjira
-
-from powerjira import powerjira
-from sys import argv, exit
-
-config_path      = 'config.yml'
-agent_path       = 'agent.yml'
-summary_path     = 'summary.txt'
-description_path = 'description.txt'
-
-powerjira(
-  config_path,
-  agent_path,
-  summary_path,
-  description_path,
-  argv[1:]
-)
-exit(0)
-```
-
-Make your local config files:
+For convenience, set some macro in your shell like:
 ```sh
-touch summary.txt description.txt config.yml agent.yml
+alias pj='python -m powerjira'
 ```
 
-For the configuration files:
-**config.yml**
-```yaml
-project  : <project-key>
-priority : <priority>
+Now the terminal is your ticketing interface:
+```st
+pj goto # opens config in editor
 
-issue_type : <type>
-epicKey    : # Leave as empty for standalone task or epic
-
-reporter : <reporter-account-id>
-assignee : <assignee-account-id>
-```
-**agent.yml**
-```yaml
-domain: <host>
-
-user_name: <email>
-token: <jira-access-token>
-```
-
-Presuming you've named said shell alias `pj`, print the help message:
-```sh
-pj --help
+pj fetch QA-123 # shows ticket
+pj "to do" # shows all your tickets
+pj make # reads specs from your config
+pj watched prune # un-watches all your 'DONE' watched tickets
+pj watched list
 ```
 
 <br />
@@ -95,41 +58,34 @@ pj --help
 ## **Technologies 🧰**
 <hr>
 
-  - [PyYAML](https://pypi.org/project/PyYAML/)
-  - [python-jira](https://pypi.org/project/jira/)
-  - [Poetry](https://python-poetry.org/)
+  - [Tabulate](https://pypi.org/project/tabulate/)
   - [Typer](https://typer.tiangolo.com/)
+  - [PyYAML](https://pypi.org/project/PyYAML/)
+  - [jira](https://pypi.org/project/jira/)
 
 <br />
 
 ## **Contribute 🤝**
 <hr>
 
-Feel free to push PR's to help make this tool more extensible/flexible.
+If you have thoughts on how to make the tool more pragmatic, submit a PR 😊 \
+Also see [TODOD](TODO.md) for feature roadmap.
 
-<br />
-
-## **Acknowledgements 💙**
-<hr>
-
-Thanks to Atlassian for making market-leading tools that kinda frustrate me.
+Documentation on the python jira module can be [explored here](https://jira.readthedocs.io/api.html#jira.client.JIRA).
 
 <br />
 
 ## **License, Stats, Author 📜**
 <hr>
 
-<img align="right" alt="example image tag" src="https://i.imgur.com/jtNwEWu.png" width="200" />
+<img align="right" alt="example image tag" src="https://i.imgur.com/ZHnNGeO.png" width="200" />
 
 <!-- badge cluster -->
-
-![PyPI](https://img.shields.io/pypi/v/powerjira)
+![PyPI - License](https://img.shields.io/pypi/l/powerjira?style=plastic)
+![PyPI - Version](https://img.shields.io/pypi/v/powerjira)
 ![GitHub repo size](https://img.shields.io/github/repo-size/anthonybench/powerjira)
-
 <!-- / -->
+
 See [License](LICENSE) for the full license text.
 
-This repository was authored by *Isaac Yep*. \
-[PyPi Package](https://pypi.org/project/powerjira/#table-of-contents)
-
-[Back to Table of Contents](#table-of-contents-)
+This package was authored by *Isaac Yep*.
