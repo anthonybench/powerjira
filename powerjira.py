@@ -3,7 +3,12 @@
 '''README
 
 Usage:
-  ./<package_name>.py <path> [options]
+  ./powerjira.py init
+  ./powerjira.py goto
+  ./powerjira.py fetch <target>
+  ./powerjira.py make
+  ./powerjira.py watched list
+  ./powerjira.py watched prune
 '''
 
 from powerjira_toolchain.commands import app
