@@ -15,15 +15,15 @@ templates = {
   'ticket.yml': '''# pj --help
 
 #───TICKET───────────────────
-reporter: iyep
-assignee: iyep
+reporter: jack
+assignee: jill
 
 init_status: to do # new, to do, in progress, done, backlog
 
-project: quant # quant, hyp, cs
+project: sales # sales, marketing, frontend
 priority: medium # low, medium, high (ignored if epic)
 issue_type: task # task, epic
-parent_epic: '' # Leave empty for standalone task or epic
+parent_epic: '' # leave empty for standalone task or epic
 
 
 #───GIT──────────────────────
