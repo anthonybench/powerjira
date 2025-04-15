@@ -3,6 +3,7 @@
   - project :: CAPITAL
   - priority :: Title
   - issue_type :: Title
+- quant fetch <ticket_key> :: Error. Missing config key: 'branch_suffix'
 
 - support different editors
 - github action for pypi build
