@@ -27,17 +27,17 @@ parent_epic: '' # leave empty for standalone task or epic
 
 
 #───GIT──────────────────────
-branch_suffix: 'implement_thing'
-parent_branch: main''',
+parent_branch: main
+# ℹ️ naming convention must include <ticket_key>
+branch_naming_convention: feature/<ticket_key>_<branch_suffix>
+branch_name_params: # custom branch name parameters
+  branch_suffix: implement_thing''',
 
   'summary.txt': '''This is the ticket's title, which jira calls the "summary"''',
 
   'description.txt': '''This is the ticket's description''',
 }
 
-
-#TODO: move to ticket.yml
-branch_naming_convention = 'feature/<ticket_key>_<branch_suffix>'
 #TODO: implement override in sleepyconfig.yml
 result_table_style = default_powerjira_table_style if True else ''
 powerjira_directory = default_powerjira_directory if True else ''

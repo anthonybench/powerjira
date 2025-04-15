@@ -25,7 +25,7 @@ def goto():
 @app.command()
 def make(dry_run:bool=False):
   '''Builds ticket per <powerjira_directory>/ticket.yml'''
-  # guards
+  # file guards
   verifyPath(f'{powerjira_directory}/ticket.yml')
   verifyPath(f'{powerjira_directory}/summary.txt')
   verifyPath(f'{powerjira_directory}/description.txt')
@@ -40,10 +40,14 @@ def make(dry_run:bool=False):
     priority = config['priority']
     issue_type = config['issue_type']
     parent_epic = config['parent_epic']
-    branch_suffix = config['branch_suffix']
     parent_branch = config['parent_branch']
+    branch_naming_convention = config['branch_naming_convention']
   except KeyError as ke:
     errorMessage(f'Missing config key: {ke}')
+
+  # guard for <ticket_key> in branch_naming_convention
+  if '<ticket_key>' not in branch_naming_convention:
+    errorMessage('Branch naming convention must include <ticket_key>.')
 
   # build payload
   with open(f'{powerjira_directory}/summary.txt', 'r') as summary, open(f'{powerjira_directory}/description.txt', 'r') as description:
@@ -73,7 +77,8 @@ def make(dry_run:bool=False):
     new_issue = jira.create_issue(fields=ticket_blueprint)
     status_id = jira.find_transitionid_by_name(new_issue.key, init_status)
     jira.transition_issue(new_issue.key, transition=status_id)
-    print(formatTicketString(jira.issue(new_issue.key), branch_suffix=branch_suffix, parent_branch=parent_branch))
+    branch_name = substituteDynamicParams(branch_naming_convention.replace('<ticket_key>', new_issue.key), config['branch_name_params'])
+    print(formatTicketString(jira.issue(new_issue.key), branch_name=branch_name,  parent_branch=parent_branch))
     exit(0)
 
 

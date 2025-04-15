@@ -69,7 +69,7 @@ def openPowerJiraDirectory(editor:str) -> None:
       errorMessage(f'Editor {editor} not supported.')
 
 
-def formatTicketString(ticket:Issue, branch_suffix:str, parent_branch:str, style:str=result_table_style) -> str:
+def formatTicketString(ticket:Issue, branch_name:str, parent_branch:str, style:str=result_table_style) -> str:
   '''builds string per ticket info to print'''
   #───GLANCE───────────────────
   if len(ticket.fields.summary) < ticket_excerpt_length:
@@ -104,7 +104,6 @@ def formatTicketString(ticket:Issue, branch_suffix:str, parent_branch:str, style
   payload += f'{info_table}\n'
 
   #───GLANCE───────────────────
-  branch_name = branch_naming_convention.replace("<ticket_key>", ticket.key).replace("<branch_suffix>", branch_suffix)
   payload += f'\n[bold green]GIT COMMANDS[/bold green]\n'
   git_table = tabulate([
     ['Create Branch', f'git checkout -b {branch_name}'],
@@ -136,6 +135,25 @@ def getUserID(search_name:str, session_object=jira) -> str:
   else:
     print(f"No users found by search term `{search_name}`")
     exit(1)
+
+
+def substituteDynamicParams(input_string:str, params_dict:Dict[str, any]) -> str:
+  """Substitute Dynamic Parameters
+  Replaces substrings enclosed in angle brackets with corresponding values from a dictionary.
+
+  Args:
+    input_string (str): The input string containing substrings enclosed in angle brackets.
+    params_dict (dict): A dictionary mapping parameter names to their replacement values.
+
+  Returns:
+    str: The input string with parameters substituted.
+  """
+  def replaceMatch(match):
+    key = match.group(1)
+    return params_dict.get(key, match.group(0))  # Replace if key exists, else keep original
+
+  pattern = r"<(.*?)>"
+  return re.sub(pattern, replaceMatch, input_string)
 
 
 @dataclass
