@@ -36,11 +36,12 @@ def make(dry_run:bool=False):
     reporter = config['reporter']
     assignee = config['assignee']
     init_status = config['init_status']
-    project = config['project']
-    priority = config['priority']
-    issue_type = config['issue_type']
+    project = config['project'].upper()
+    priority = config['priority'].title()
+    issue_type = config['issue_type'].title()
     parent_epic = config['parent_epic']
     parent_branch = config['parent_branch']
+    branch_name_params = config['branch_name_params']
     branch_naming_convention = config['branch_naming_convention']
   except KeyError as ke:
     errorMessage(f'Missing config key: {ke}')
@@ -77,7 +78,7 @@ def make(dry_run:bool=False):
     new_issue = jira.create_issue(fields=ticket_blueprint)
     status_id = jira.find_transitionid_by_name(new_issue.key, init_status)
     jira.transition_issue(new_issue.key, transition=status_id)
-    branch_name = substituteDynamicParams(branch_naming_convention.replace('<ticket_key>', new_issue.key), config['branch_name_params'])
+    branch_name = substituteDynamicParams(branch_naming_convention.replace('<ticket_key>', new_issue.key), branch_name_params)
     print(formatTicketString(jira.issue(new_issue.key), branch_name=branch_name,  parent_branch=parent_branch))
     exit(0)
 
@@ -90,13 +91,15 @@ def fetch(target:str):
       verifyPath(f'{powerjira_directory}/ticket.yml')
       config = readConfig(powerjira_directory + '/ticket.yml')
       try:
-        branch_suffix = config['branch_suffix']
         parent_branch = config['parent_branch']
+        branch_name_params = config['branch_name_params']
+        branch_naming_convention = config['branch_naming_convention']
       except KeyError as ke:
         errorMessage(f'Missing config key: {ke}')
       try:
         issue = jira.issue(target)
-        print(formatTicketString(issue, branch_suffix=branch_suffix, parent_branch=parent_branch))
+        branch_name = substituteDynamicParams(branch_naming_convention.replace('<ticket_key>', issue.key), branch_name_params)
+        print(formatTicketString(issue, branch_name=branch_name, parent_branch=parent_branch))
       except JIRAError as e:
         errorMessage(f'Ticket [bold]{target}[/bold] not found.')
       exit(0)
