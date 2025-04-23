@@ -1,16 +1,18 @@
-from os import getenv
+from os import getenv, path
+from yaml import safe_load
 
+# environment
 user_name = getenv('JIRA_USERNAME')
 token = getenv('JIRA_TOKEN')
 domain = getenv('JIRA_DOMAIN')
 home_dir = getenv('HOME')
 
+# static
 ticket_excerpt_length = 60
-default_powerjira_directory = f'{home_dir}/powerjira'
-default_shell = '/bin/zsh'
-default_editor = 'vscode'
-default_powerjira_table_style = 'rounded_outline'
+powerjira_directory = f'{home_dir}/.sleepyconfig/powerjira'
+powerjira_editor = 'vscode'
 
+# init templates
 templates = {
   'ticket.yml': '''# pj --help
 
@@ -38,8 +40,24 @@ branch_name_params: # custom branch name parameters
   'description.txt': '''This is the ticket's description''',
 }
 
-#TODO: implement override in sleepyconfig.yml
-result_table_style = default_powerjira_table_style if True else ''
-powerjira_directory = default_powerjira_directory if True else ''
-powerjira_shell = default_shell if True else ''
-powerjira_editor = default_editor if True else ''
+
+#───CONFIG FILE──────────────
+global_config_path = f'{home_dir}/.sleepyconfig/params.yml'
+config_file_exists = path.exists(global_config_path)
+
+def resolveValue(default:any, config_key:str) -> any:
+  '''returns config value if exists, else default'''
+  if not config_file_exists:
+    return default
+  with open(global_config_path, 'r') as f:
+    raw_config = safe_load(f)
+    if config_key not in raw_config:
+      return default
+    return raw_config[config_key]
+
+## defaults
+default_powerjira_table_style = 'rounded_outline'
+default_shell = '/bin/zsh'
+## config file
+result_table_style = resolveValue(default_powerjira_table_style, 'pj_table_style')
+powerjira_shell = resolveValue(default_shell, 'subprocess_shell')

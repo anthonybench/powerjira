@@ -25,13 +25,13 @@ def verifyPath(path:str) -> None:
   path_object = Path(path)
   format = PurePosixPath(path).suffix.lower()[1:]
   if not path_object.exists():
-    errorMessage(f'Path {path} does not exist.')
+    errorMessage(f'Path {path} does not exist. Run `init` command.')
     exit(1)
   elif not path_object.is_file():
-    errorMessage(f'Path {path} is not a file.')
+    errorMessage(f'Path {path} is not a file.  Run `init` command.')
     exit(1)
   elif format not in ['yml', 'txt']:
-    errorMessage(f'Input format "{format}" not supported, must be one of: yml, .txt')
+    errorMessage(f'Input format "{format}" not supported, must be one of: yml, .txt\nRun `init` command.')
     exit(1)
 
 
@@ -43,7 +43,7 @@ def readConfig(config_path:str) -> Dict[str,any]:
 
 def ensureTemplateTree(destination_path:str) -> None:
   """
-  Ensures the existance of the following file tree, creating when needed:
+  Ensures the existence of the following file tree, creating when needed:
     <powerjira_directory>/
       - ticket.yml
       - summary.txt
@@ -83,7 +83,6 @@ def formatTicketString(ticket:Issue, branch_name:str, parent_branch:str, style:s
       formatted_description = ticket.fields.description[:ticket_excerpt_length-3] + '...'
   else:
     formatted_description = "(no description provided)"
-  # TODO: images in description break things, handle that
 
   payload = '\n[bold green]GLANCE[/bold green]\n'
   payload += f'{ticket.fields.reporter} 👉 {ticket.fields.assignee}'
