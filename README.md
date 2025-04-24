@@ -44,10 +44,11 @@ alias pj='python -m powerjira'
 
 Now the terminal is your ticketing interface:
 ```st
+pj init # creates config
 pj goto # opens config in editor
 
 pj fetch QA-123 # shows ticket
-pj "to do" # shows all your tickets
+pj fetch "to do" # shows all your tickets
 pj make # reads specs from your config
 pj watched prune # un-watches all your 'DONE' watched tickets
 pj watched list
