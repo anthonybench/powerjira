@@ -11,10 +11,11 @@ Open a minimal set of configuration files, whose location you control (defaults 
 
 If you want to make tickets without the guff, I'm a `pip install` away!
 
+> ℹ️ For further configuration options, see the [sleepyconfig](#sleepyconfig) section at the bottom.
+
 <br />
 
 ## **Get Started 🚀**
-<hr>
 
 Export the following environment variables powerjira expects to be available for authentication:
 ```sh
@@ -35,7 +36,6 @@ python -m powerjira init # stubs config if missing, opens in editor
 <br />
 
 ## **Usage ⚙**
-<hr>
 
 For convenience, set some macro in your shell like:
 ```sh
@@ -55,8 +55,19 @@ pj watched list
 
 <br />
 
+## **SleepyConfig**
+
+You can personalize a few aspects of powerjira's behavior via a file strictly named `~/.sleepyconfig/params.yml`. Paste the following into said file, and tinker to your liking:
+```yml
+subprocess_shell: /bin/zsh # this one is global for all sleepytools
+pj_table_style: 'rounded_outline'
+```
+
+All other *sleepytools* use this file as well. Browse [my PyPI](https://pypi.org/user/sleepyboy/) if you're interested!
+
+<br />
+
 ## **Technologies 🧰**
-<hr>
 
   - [Tabulate](https://pypi.org/project/tabulate/)
   - [Typer](https://typer.tiangolo.com/)
@@ -66,7 +77,6 @@ pj watched list
 <br />
 
 ## **Contribute 🤝**
-<hr>
 
 If you have thoughts on how to make the tool more pragmatic, submit a PR 😊 \
 Also see [TODOD](TODO.md) for feature roadmap.
@@ -76,7 +86,6 @@ Documentation on the python jira module can be [explored here](https://jira.read
 <br />
 
 ## **License, Stats, Author 📜**
-<hr>
 
 <img align="right" alt="example image tag" src="https://i.imgur.com/ZHnNGeO.png" width="200" />
 
@@ -88,4 +97,6 @@ Documentation on the python jira module can be [explored here](https://jira.read
 
 See [License](LICENSE) for the full license text.
 
-This package was authored by *Isaac Yep*.
+This package was authored by *Isaac Yep*. \
+👉 [GitHub](https://github.com/anthonybench/powerjira) \
+👉 [PyPI](https://pypi.org/project/powerjira/)
