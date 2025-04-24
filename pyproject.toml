@@ -1,6 +1,6 @@
 [project]
 name = "powerjira"
-version = "1.2.2"
+version = "1.2.3"
 description = "A succinct, minimal local jira control plane in a VSCode workspace. Because less Jira is more better!"
 keywords = ["jira", "work tracker", "powerjira", "cli"]
 

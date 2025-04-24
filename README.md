@@ -11,7 +11,7 @@ Open a minimal set of configuration files, whose location you control (defaults 
 
 If you want to make tickets without the guff, I'm a `pip install` away!
 
-> ℹ️ For further configuration options, see the [sleepyconfig](#sleepyconfig) section at the bottom.
+> ℹ️ For further configuration options, see the [sleepyconfig](#sleepyconfig) section below.
 
 <br />
 
