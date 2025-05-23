@@ -3,3 +3,5 @@
 - support different editors
 - github action for pypi build
 - implement logging
+- advertize usage in readme
+- `[list, done]` in the `watched` command should likely be `[list, prune]`
