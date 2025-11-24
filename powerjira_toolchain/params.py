@@ -46,7 +46,7 @@ global_config_path = f'{home_dir}/.sleepyconfig/params.yml'
 config_file_exists = path.exists(global_config_path)
 
 def resolveValue(default:any, config_key:str) -> any:
-  '''returns config value if exists, else default'''
+  '''Returns config value if exists, else default'''
   if not config_file_exists:
     return default
   with open(global_config_path, 'r') as f:

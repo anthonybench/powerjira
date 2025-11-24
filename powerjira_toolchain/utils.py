@@ -15,13 +15,13 @@ jira = JIRA(server=domain, basic_auth=(user_name, token))
 
 
 def errorMessage(message:str) -> None:
-  '''generic error messageing'''
+  '''Generic error messageing'''
   print(f'[red][bold]Error[/bold]. {message}[/red]')
   exit(1)
 
 
 def verifyPath(path:str) -> None:
-  '''check if input and output paths are valid, exits if not'''
+  '''Check if input and output paths are valid, exits if not'''
   path_object = Path(path)
   format = PurePosixPath(path).suffix.lower()[1:]
   if not path_object.exists():
@@ -36,13 +36,13 @@ def verifyPath(path:str) -> None:
 
 
 def readConfig(config_path:str) -> Dict[str,any]:
-  '''reads config file and returns config as dict'''
+  '''Reads config file and returns config as dict'''
   with open(config_path, 'r') as raw_config:
     return safe_load(raw_config)
 
 
 def ensureTemplateTree(destination_path:str) -> None:
-  """
+  """ Ensure Template Tree
   Ensures the existence of the following file tree, creating when needed:
     <powerjira_directory>/
       - ticket.yml
@@ -61,7 +61,7 @@ def ensureTemplateTree(destination_path:str) -> None:
 
 
 def openPowerJiraDirectory(editor:str) -> None:
-  '''opens powerjira directory in editor'''
+  '''Opens powerjira directory in editor'''
   match editor:
     case 'vscode':
       subprocess.run(f'code -n {powerjira_directory}', shell=True, capture_output=True, text=True, executable=powerjira_shell)
@@ -70,7 +70,7 @@ def openPowerJiraDirectory(editor:str) -> None:
 
 
 def formatTicketString(ticket:Issue, branch_name:str, parent_branch:str, style:str=result_table_style) -> str:
-  '''builds string per ticket info to print'''
+  '''Builds string per ticket info to print'''
   #───GLANCE───────────────────
   if len(ticket.fields.summary) < ticket_excerpt_length:
     formatted_summary = ticket.fields.summary
@@ -115,14 +115,14 @@ def formatTicketString(ticket:Issue, branch_name:str, parent_branch:str, style:s
 
 
 def buildTable(data:List[any], title:str, headers:List[str]=None, style:str=result_table_style) -> str:
-  '''assembles table, with all the fixings'''
+  '''Assembles table, with all the fixings'''
   table = tabulate(data, headers=headers, tablefmt=style)
   return f"\n[bold green]{title}[/bold green]\n{table}\n"
 
 
 def getUserID(search_name:str, session_object=jira) -> str:
   '''Get USER ID
-  fetches a user's user-id from jira, can be:
+  Fetches a user's user-id from jira, can be:
     - email (iyep@halcyon.ai)
     - email without domain (iyep)
     - full name (Isaac Yep)
